@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ _message }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Name</ion-label>
+      <ion-input [(ngModel)]="_name" name="name" type="text" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Quantity</ion-label>
+      <ion-select [(ngModel)]="_quantity" name="quantity">
+        <ion-select-option *ngFor="let q of _quantities" [value]="q">{{ q }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Purchase Date</ion-label>
+      <ion-input [(ngModel)]="_purchaseDate" name="purchaseDate" type="date"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Location</ion-label>
+      <ion-input [(ngModel)]="_location" name="location" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Asset Tag</ion-label>
+      <ion-input [(ngModel)]="_assetTag" name="assetTag" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Picture URL</ion-label>
+      <ion-input [(ngModel)]="_picture" name="picture" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Upload File</ion-label>
+      <input type="file" (change)="onFileSelected($event)">
+    </ion-item>
+
+    <ion-item *ngIf="_file">
+      <ion-label>Current File: {{ _file }}</ion-label>
+      <ion-button [href]="_inventory?.file" target="_blank">Download File</ion-button>
+    </ion-item>
+
+    <!-- Added Take Picture button - 2024-08-25 -->
+    <ion-item>
+      <ion-button (click)="takePicture()" size="small">Take Picture</ion-button>
+    </ion-item>
+
+    <!-- Added display for captured image - 2024-08-25 -->
+    <ion-item *ngIf="capturedImage">
+      <img [src]="'data:image/jpeg;base64,' + capturedImage" alt="Captured image" style="max-width: 100%; height: auto;">
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" (click)="confirm()">Save</ion-button>
+</ion-content>
